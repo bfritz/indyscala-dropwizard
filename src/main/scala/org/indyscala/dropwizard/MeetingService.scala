@@ -14,6 +14,7 @@ object MeetingService
 
   override def run(config: MeetingConfiguration, env: Environment) {
     env.addResource(new MeetingResource(config))
+    env.addHealthCheck(new FakeDbHealthCheck)
   }
 }
 
