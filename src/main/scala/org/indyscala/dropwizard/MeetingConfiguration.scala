@@ -1,12 +1,20 @@
 package org.indyscala.dropwizard
 
 import com.yammer.dropwizard.config.Configuration
-import scala.reflect.BeanProperty
-import org.hibernate.validator.constraints._
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints._
+import org.hibernate.validator.constraints._
 
 class MeetingConfiguration extends Configuration {
-  
-  // TODO: implement service configuration
 
+  @JsonProperty
+  @NotEmpty
+  @Pattern(regexp="[A-Z]+")
+  var dayOfWeek = "MONDAY"
+
+  @JsonProperty
+  @Range(min=1, max=5)
+  var weekOfMonth = 1
 }
+
+// vim: set ts=2 sw=2 et:
