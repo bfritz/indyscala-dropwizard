@@ -13,7 +13,8 @@ object MeetingService
   }
 
   override def run(config: MeetingConfiguration, env: Environment) {
-    // TODO: implement service
+    env.addResource(new MeetingResource(config))
   }
 }
 
+// vim: set ts=2 sw=2 et:
