@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dropwizard with Scala</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="file:///usr/lib/python2.7/site-packages/landslide/themes/default/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="file:///usr/lib/python2.7/site-packages/landslide/themes/default/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="file:///usr/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Dropwizard with Scala</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is Dropwizard?</h1></header>
+            
+            
+            <section><p>Coda Hale probably describes it best:</p>
+<blockquote>
+<p>Dropwizard is a sneaky way of making fast Java or Scala web services.</p>
+<p>It's a little bit of opinionated glue code which bangs together a set
+of libraries which have historically not sucked:</p>
+<ul>
+<li>Jetty for HTTP servin'.</li>
+<li>Jersey for REST modelin'.</li>
+<li>Jackson for JSON parsin' and generatin'.</li>
+<li>Logback for loggin'.</li>
+<li>Hibernate Validator for validatin'.</li>
+<li>Metrics for figurin' out what your service is doing in production.</li>
+<li>SnakeYAML for YAML parsin' and configuratin'.</li>
+</ul>
+<p>Yammer's high-performance, low-latency, Java and Scala services all
+use Dropwizard. In fact, Dropwizard is really just a simple extraction
+of Yammer's glue code.</p>
+</blockquote></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Alternatives?</h1></header>
+            
+            
+            <section><p>You betcha...</p>
+<ul>
+<li><a href="http://scalatra.org">Scalatra</a></li>
+<li><a href="http://unfiltered.databinder.net/">Unfiltered</a></li>
+<li><a href="http://spray.io/">Spray</a></li>
+<li><a href="http://akka.io/">Akka</a> without Spray [1,2]</li>
+<li><a href="https://github.com/twitter/finagle">Finagle</a> [3]</li>
+<li><a href="https://github.com/pk11/pinky">Pinky</a> (no longer maintained)</li>
+<li>...and more.[4]</li>
+</ul>
+<p>[1] <a href="http://doc.akka.io/docs/akka/1.3.1/scala/http.html">http://doc.akka.io/docs/akka/1.3.1/scala/http.html</a><br/>
+[2] <a href="http://github.com/mattbowen/akka-web-template">http://github.com/mattbowen/akka-web-template</a><br/>
+[3] <a href="https://groups.google.com/d/topic/finaglers/BamVfTlnM9Q/discussion">https://groups.google.com/d/topic/finaglers/BamVfTlnM9Q/discussion</a></br>
+[4] <a href="http://stackoverflow.com/questions/3678795/scala-framework-for-a-rest-api-server">http://stackoverflow.com/questions/3678795/scala-framework-for-a-rest-api-server</a><br/></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why use Dropwizard with Scala?</h1></header>
+            
+            
+            <section><p>You might not want to.  There are a lot of Scala stacks
+for backing RESTful web services.</p>
+<p>But Dropwizard might be a good fit if you have a <strong>mix
+of Java and Scala</strong> services or...</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why use Dropwizard with Scala? (cont.)</h1></header>
+            
+            
+            <section><p>...if Dropwizard fits your requirements particularly
+well.  E.g. if you:</p>
+<ul>
+<li>are serving mostly <strong>JSON</strong><br/>
+  (nothing precludes other formats and <strong>Freemarker template</strong> support is built-in)</li>
+<li>like the <strong>JAX-RS resource resolution</strong> approach<br/>
+  (@Consumes, @Produces, @Path)</li>
+<li>appreciate the ease of adding <strong>timing data</strong> and <strong>health checks</strong></li>
+<li>with <strong>built-in instrumentation</strong> for Jetty, Jersey, Logback,
+     JDBI and HttpClient</li>
+<li>and the ability to easily <strong>integrate with Graphite or Ganglia</strong>
+     or one of the zillon JSON-capable dashboards</li>
+<li>like the <strong>fat-jar</strong>-per-service approach</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What does a basic service look like?</h1></header>
+            
+            
+            <section><ul>
+<li>Configuration</li>
+<li>[Scala]Service</li>
+<li>Resource</li>
+<li>representation classes (optional)</li>
+<li>Health Check (optional)</li>
+<li>static assets (optional)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Configuration - class</h1></header>
+            
+            
+            <section><pre><code>class MeetingConfiguration extends Configuration {
+  @JsonProperty
+  @NotEmpty @Pattern(regexp="[A-Z]+")
+  var dayOfWeek: String = "MONDAY"
+
+  @JsonProperty
+  @Range(min=1, max=5)
+  var weekOfMonth: Int = 1
+}
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Configuration - YAML</h1></header>
+            
+            
+            <section><pre><code>dayOfWeek: MONDAY
+weekOfMonth: 2
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Service</h1></header>
+            
+            
+            <section><pre><code>object MeetingService extends ScalaService[MeetingConfiguration] {
+  override def initialize(bootstrap: Bootstrap[MeetingConfiguration]) {
+    bootstrap.setName("meeting")
+    bootstrap.addBundle(new ScalaBundle)
+    bootstrap.addBundle(new AssetsBundle)
+  }
+
+  override def run(config: MeetingConfig, env: Environment) {
+    env.addResource(new MeetingResource(config))
+    env.addHealthCheck(new FakeDbHealthCheck)
+  }
+}
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Resource</h1></header>
+            
+            
+            <section><pre><code>@Path("/meeting")
+@Produces(Array(MediaType.APPLICATION_JSON))
+class MeetingResource(config: MeetingConfiguration) {
+  val ymdFormat = DateTimeFormat.forPattern("yyyy-MM-dd")
+
+  @GET
+  @Timed
+  def meeting(@QueryParam("date") date: Option[String]) = {
+    val d = parseDate(date)
+    MeetingResponse(ymdFormat.print(d), isMeetingOn(d))
+  }
+
+  def isMeetingOn(date: Date) = {
+    // fancy date logic that returns Boolean goes here
+  }
+}
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>representation classes</h1></header>
+            
+            
+            <section><p>Can use case classes:</p>
+<pre><code>case class MeetingResponse(date: String, meeting: Boolean)
+</code></pre>
+<p>or more complex structure:</p>
+<ul>
+<li>Jackson annotations</li>
+<li>SoapMessage with appropriate JAX-RS provider</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Health Check</h1></header>
+            
+            
+            <section><pre><code>class DbAvailableHealthCheck extends HealthCheck {
+
+  override def check: Result = {
+    try {
+      // ping DB
+    } finally {
+      // cleanup
+    }
+    Result.healthy
+  }
+}
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Instrumentation:</h1></header>
+            
+            
+            <section><p>$ curl <a href="http://localhost:8081/metrics?pretty=true">http://localhost:8081/metrics?pretty=true</a></p>
+<pre><code>"jvm" : {
+  "vm" : {
+    "name" : "OpenJDK 64-Bit Server VM",
+    "version" : "1.6.0_24-b24"
+  },
+  "memory" : {
+    "heapMax" : 1.847394304E9,
+[..]
+    "memory_pool_usages" : {
+      "Code Cache" : 0.0167388916015625,
+      "PS Eden Space" : 0.04516772831629589,
+[..]
+    }
+  },
+  "daemon_thread_count" : 7,
+  "thread_count" : 24,
+  "current_time" : 1354573221576,
+  "uptime" : 897,
+  "fd_usage" : 0.00341796875,
+
+[..]
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What else?</h1></header>
+            
+            
+            <section><ul>
+<li>instrumented <a href="http://jdbi.org/">JDBI</a> and Hibernate support</li>
+<li>database migrations via <a href="http://liquibase.org/">Liquibase</a></li>
+<li><a href="http://dropwizard.codahale.com/manual/auth/">pluggable authentication</a>
+  with HTTP Basic and OAuth2 support</li>
+<li>serve static assets from fat jar</li>
+<li>logging wrapper around <a href="http://logback.qos.ch/">Logback</a> with
+  routing of Log4j and commons-logging through Logback</li>
+<li>and more: <a href="http://dropwizard.codahale.com/manual/">http://dropwizard.codahale.com/manual/</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Resources</h1></header>
+            
+            
+            <section><ul>
+<li>Dropwizard: <a href="http://dropwizard.codahale.com/">http://dropwizard.codahale.com/</a></li>
+<li>dropwizard-scala: <a href="http://dropwizard.codahale.com/manual/scala/">http://dropwizard.codahale.com/manual/scala/</a></li>
+<li>Courtney Robinson's Templates: <a href="https://github.com/zcourts/scala-dropwizard-template">https://github.com/zcourts/scala-dropwizard-template</a></li>
+<li>Archetypes: <a href="https://github.com/nicktelford/dropwizard/tree/feature/maven-archetypes">https://github.com/nicktelford/dropwizard/tree/feature/maven-archetypes</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Me</h1></header>
+            
+            
+            <section><p>Brad Fritz</p>
+<p><em>brad@fewerhassles.com</em></p>
+<p><em>bfritz</em> on <strong>github</strong>, <strong>irc</strong> (freenode) and <strong>twitter</strong></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides.md">slides.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/16
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Dropwizard with Scala</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">What is Dropwizard?</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Alternatives?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Why use Dropwizard with Scala?</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Why use Dropwizard with Scala? (cont.)</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">What does a basic service look like?</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Configuration - class</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Configuration - YAML</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Service</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Resource</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">representation classes</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Health Check</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Instrumentation:</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">What else?</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Resources</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Me</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
