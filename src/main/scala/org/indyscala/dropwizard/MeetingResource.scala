@@ -30,7 +30,8 @@ class MeetingResource(config: MeetingConfiguration) {
   @GET
   @Timed
   def meeting(@QueryParam("date") date: Option[String]) = {
-    isMeetingOn(parseDate(date))
+    val d = parseDate(date)
+    MeetingResponse(dateFormatter.print(d), isMeetingOn(d))
   }
 
   def isMeetingOn(date: DateTime) = {
