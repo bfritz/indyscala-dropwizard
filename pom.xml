@@ -21,7 +21,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <dropwizard.version>0.6.1</dropwizard.version>
     <scala.version>2.9.1</scala.version>
-    <mainClass>${project.groupId}.${project.artifactId}.${project.name}Service</mainClass>
+    <mainClass>${project.groupId}.${project.name}Service</mainClass>
   </properties>
 
   <dependencies>
