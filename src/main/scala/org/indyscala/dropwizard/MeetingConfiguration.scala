@@ -16,5 +16,3 @@ class MeetingConfiguration extends Configuration {
   @Range(min=1, max=5)
   var weekOfMonth = 1
 }
-
-// vim: set ts=2 sw=2 et:

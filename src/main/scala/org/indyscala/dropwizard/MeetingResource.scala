@@ -48,5 +48,3 @@ class MeetingResource(config: MeetingConfiguration) {
     case None => new DateTime
   }
 }
-
-// vim: set ts=2 sw=2 et:

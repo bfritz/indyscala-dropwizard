@@ -9,5 +9,3 @@ class FakeDbHealthCheck extends HealthCheck("fake-db") {
     Result.healthy
   }
 }
-
-// vim: set ts=2 sw=2 et:
